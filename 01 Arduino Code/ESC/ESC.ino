@@ -1,21 +1,15 @@
+#include <Servo.h>
+
 byte servoPin = 9;
-
-
 
 Servo servo;
 int value = 1000; // Set signal value, which should be between 1100 and 1900
 
-
-
 void setup() {
 servo.attach(servoPin);
 
-
-
 servo.writeMicroseconds(0); // send "stop" signal to ESC.
 Serial.begin(9600);
-
-
 
 delay(5000); // delay to allow the ESC to recognize the stopped signal
 // servo.writeMicroseconds(1000);
@@ -27,11 +21,8 @@ Serial.println("start");
 }
 
 
-
-void loop() {
-
-
-
+void loop() 
+{
 if (Serial.available() > 0) {
 // read the incoming byte:
 //value = Serial.read();
