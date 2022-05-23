@@ -5,7 +5,8 @@ byte servoPin = 9;
 Servo servo;
 int value = 1000; // Set signal value, which should be between 1100 and 1900
 
-void setup() {
+void setup() 
+{
 servo.attach(servoPin);
 
 servo.writeMicroseconds(0); // send "stop" signal to ESC.
@@ -23,11 +24,13 @@ Serial.println("start");
 
 void loop() 
 {
-if (Serial.available() > 0) {
+if (Serial.available() > 0) 
+{
 // read the incoming byte:
 //value = Serial.read();
 value = Serial.parseInt();
-if ((value >= 1000) && (value <= 2000)) {
+if ((value >= 1000) && (value <= 2000)) 
+{
 Serial.println(value);
 servo.writeMicroseconds(value); // Send value to ESC.
 }
