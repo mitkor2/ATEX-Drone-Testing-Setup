@@ -2,33 +2,24 @@
 #include <Servo.h>
 #include <SPI.h>
 #include <Wire.h>
-unsigned long rpmtime;
-float rpmfloat;
-unsigned int rpm;
-bool tooslow = 1;
+
 byte servoPin = 9;
 
 Servo servo;
 int duty_new = 1000; // Set signal value, which should be between 1100 and 1900
 int duty_old = 0;
 
+
+
 void setup() {
   servo.attach(servoPin);
   servo.writeMicroseconds(0); // send "stop" signal to ESC.
   Serial.begin(9600);
-  delay(5000);
+  delay(1000);
   Serial.println("start");
   Serial.println("Fill in the max dulty cycle");
-  TCCR1A = 0;
-  TCCR1B = 0;
-  TCCR1B |= (1 << CS12); //Prescaler 256
-  TIMSK1 |= (1 << TOIE1); //enable timer overflow
-  pinMode(2, INPUT);
-  attachInterrupt(0, RPM, FALLING);
-}
 
-ISR(TIMER1_OVF_vect) {
-  tooslow = 1;
+
 }
 
 void loop() {
@@ -48,25 +39,8 @@ void loop() {
       servo.writeMicroseconds(duty_new); // Send value to ESC.
     }
   }
-  delay(1000);
-  if (tooslow == 1) 
-  {
-    Serial.println("Too Slow");
-  }
-  else 
-  {
-    rpmfloat = 120 / (rpmtime/ 31250.00);
-    rpm = round(rpmfloat);
-    Serial.print("RPM = ");
-    Serial.println(rpm);
-  }
 }
 
-void RPM () {
-  rpmtime = TCNT1;
-  TCNT1 = 0;
-  tooslow = 0;
-}
 
 int setDuty(int duty_new, int duty_old){
   int a; 

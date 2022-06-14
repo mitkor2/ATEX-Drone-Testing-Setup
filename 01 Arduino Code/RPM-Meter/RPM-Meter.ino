@@ -1,11 +1,6 @@
+#include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
-#include <time.h>
-#include <Servo.h>
-#include <stdio.h>
-#include <TimeLib.h>
-#include <Arduino.h>
-
 unsigned long rpmtime;
 float rpmfloat;
 unsigned int rpm;
